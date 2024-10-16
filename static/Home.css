@@ -1,0 +1,79 @@
+/* Estilo geral do corpo */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo do menu lateral */
+
+.sidebar {
+    height: 100vh; 
+    overflow-y: auto; 
+    background-color: rgb(226, 122, 43);
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    width: 200px; 
+    padding-top: 20px;
+}
+
+
+/* Estilo dos links no menu lateral */
+.sidebar a {
+    padding: 15px 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;   
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: rgb(210, 92, 2);
+}
+
+/* Estilo do logo */
+.sidebar img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 140px;
+    height: 100px;
+}
+
+/* Estilo do conteúdo principal */
+.main-content {
+    margin-left: 260px; 
+    padding: 20px;
+    background-color: #f1f1f1;
+    min-height: 100vh;
+
+}
+
+.main-content img {
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    margin: 20px 0; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+/* Estilo dos botões */
+button {
+    padding: 10px 20px;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #e65c00;
+}

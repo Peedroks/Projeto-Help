@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link href="{{ url_for('static', filename='Home.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Menu lateral -->
+    <div class="sidebar">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="logo">
+        <a href="home"><button>Página Principal</button></a>
+        <a href="{{ url_for('criarconta') }}"><button>Criar conta</button></a>
+        <a href="{{ url_for('login') }}"><button>Login</button></a>
+        <a href="{{ url_for('add_catalogo')}}"><button>Adicionar Item</button>
+        <a href="#"><button>Histórico</button></a>
+        <a href="#"><button>Orçamentos</button></a>
+        <a href="#"><button>Convidar Amigos</button></a>
+        <a href="#"><button>Avaliações</button></a>
+        <a href="#"><button>Sobre Nós</button></a>
+    </div>
+
+    <!-- Conteúdo principal da página -->
+
+    <div class="main-content">
+        <h1>Busque o melhor profissional para atender suas necessidades</h1>
+        <form action="/buscar_por_cep" method="POST">
+            <input type="text" name="query" placeholder="Digite o serviço desejado" required>
+            
+            <label for="cep">Informe o CEP:</label>
+            <input type="text" name="cep" id="cep" placeholder="Digite o CEP" required>
+        
+            <button type="submit">Buscar</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

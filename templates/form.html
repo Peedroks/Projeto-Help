@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link href="{{ url_for('static', filename='Style_cadastro.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="conteiner">
+        <div class="content first-content">
+            <!-- Primeira coluna - Informação e link para login -->
+            <div class="primeira-coluna">
+                <h2 class="titulo titulo-welcome">Já tem uma conta?</h2>
+                <p class="descrição descrição-primária">Para manter-se conectado conosco</p>
+                <p class="descrição descrição-primária">Faça login com suas informações pessoais</p>
+                <a href="/login"><button class="btn btn-primeiro">Fazer Login</button></a>
+            </div>
+
+            <!-- Segunda coluna - Formulário de Cadastro -->
+            <div class="segunda-coluna">
+                <h2 class="titulo titulo-secundario">Crie sua conta</h2>
+
+                <!-- Mídia social (opcional) -->
+                <div class="midia social">
+                    <ul class="Redes-Sociais">
+                        <li class="Lista-redes-sociais">
+                            <a href="https://www.facebook.com/login/">
+                              <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Descrição da imagem" width="20" height="20">
+
+                            </a>
+                        </li>
+                        <li class="Lista-redes-sociais">
+                            <a href="https://accounts.google.com/">
+                                <img src="https://img.icons8.com/ios-glyphs/30/google-logo--v1.png" width="20"
+                                    height="20" alt="Google">
+                            </a>
+                        </li>
+                        <li class="Lista-redes-sociais">
+                            <a href="https://www.linkedin.com/login/">
+                                <img src="https://img.icons8.com/ios-glyphs/30/linkedin.png" width="20" height="20"
+                                    alt="LinkedIn">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="descrição descrição-secundário">Ou use o seu email para cadastrar:</p>
+
+                <!-- Formulário de Cadastro -->
+                <form action="/submit" method="post" class="form">
+                    <label class="Label-input" for="name">
+                      <img src="{{ url_for('static', filename='images/User.png') }}" alt="Usuário" width="20" height="20">
+                        <input type="text" id="name" name="name" placeholder="Nome" required>
+                    </label>
+
+                    <label class="Label-input" for="email">
+                      <img src="{{ url_for('static', filename='images/Email.png') }}" alt="email" width="20" height="20">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </label>
+
+                    <label class="Label-input" for="senha">
+                      <img src="{{ url_for('static', filename='images/cadeado.png') }}" alt="cadeado" width="20" height="20">
+                        <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                    </label>
+
+                    <button class="btn btn-cad" type="submit">Cadastrar</button>
+                </form>
+
+                <!-- Exibição de mensagens flash -->
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

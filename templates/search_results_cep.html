@@ -1,0 +1,21 @@
+<!-- search_results_cep.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados da Busca</title>
+</head>
+<body>
+    <h1>Resultados da Busca</h1>
+    {% if resultados %}
+        <ul>
+        {% for nome, categoria, distancia in resultados %}
+            <li>{{ nome }} - {{ categoria }} - {{ distancia }} km</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum resultado encontrado.</p>
+    {% endif %}
+    <a href="/home">Voltar</a>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+    <link href="{{ url_for('static', filename='Home.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Menu lateral -->
+    <div class="sidebar">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="logo">
+        <a href="home"><button>Página Principal</button></a>
+        <a href="{{ url_for('criarconta') }}"><button>Criar conta</button></a>
+        <a href="{{ url_for('login') }}"><button>Login</button></a>
+        <a href="{{ url_for('add_catalogo')}}"><button>Adicionar Item</button>
+        <a href="#"><button>Histórico</button></a>
+        <a href="#"><button>Orçamentos</button></a>
+        <a href="#"><button>Convidar Amigos</button></a>
+        <a href="#"><button>Avaliações</button></a>
+        <a href="#"><button>Sobre Nós</button></a>
+    </div>
+
+
+    <div class="main-content">
+        <h1>Adicionar item ao catálogo de serviços</h1>
+        <form action="/adicionar_item" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="categoria">Categoria:</label>
+            <input type="text" id="categoria" name="categoria" required>
+            
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" required>
+            
+            <button type="submit">Adicionar Item</button>
+        </form>
+        
+    </div>
+
+</body>
+
+</html>
