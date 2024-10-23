@@ -52,9 +52,9 @@ def criar_db():
     cursor.close()
     conn.close()
     
-@app.route('/')
+@app.route('/index')
 def form():
-    return render_template('form.html')
+    return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -152,7 +152,7 @@ def logout():
 
 @app.route('/criarconta')
 def criarconta():
-    return render_template('form.html')
+    return render_template('index.html')
 
 @app.route('/home')
 def home():
@@ -214,7 +214,8 @@ def adicionar_endereco_catalogo(nome, categoria, cep):
         regiao = cursor.fetchone()
 
         if not regiao:
-            cursor.execute('INSERT INTO regiao (nome) VALUES (%s)', (regiao_nome,))
+            cursor.execute('INSERT INTO regiao (nome, estado, cidade, latitude, longitude) VALUES (%s, %s, %s, %s, %s)', 
+                           (regiao_nome, estado, cidade, latitude, longitude))
             conn.commit()
             regiao_id = cursor.lastrowid
         else:
@@ -227,6 +228,7 @@ def adicionar_endereco_catalogo(nome, categoria, cep):
         conn.close()
     else:
         flash(endereco) 
+
 
 
 def obter_coordenadas_por_cep(cep):
