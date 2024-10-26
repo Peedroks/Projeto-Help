@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagina inicial </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="CSS/style.css" />
+</head>
+
+<body>
+    <header>
+
+        <nav> <!-- Menu Mobile-->
+
+            <a class="logo" href="index.html">HELP</a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Serviços</a></li>
+                <li><a href="#">Orçamento</a></li>
+                <li><a href="#">Histórico de Consulta</a></li>
+                <li><a href="#">Sobre nós</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    <script src="JavaScript/mobile-navbar.js"></script>
+
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+
+    <!-- Conteúdo do site-->
+
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
+
+
+    <main></main>
+    <!--Rodapé-->
+    <footer>
+        <div id="footer_content">
+            <div id="fotter_contacts">
+                <h1>HELP</h1>
+                <p>Chamou? Dá um HELP aí</p>
+
+
+                <div id="footer_social-media">
+                    <a href="#" class="footer_link" id="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#" class="footer_link" id="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" class="footer_link" id="Youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+
+                </div>
+            </div>
+
+            <ul class="footer-list">
+                <li>
+                    <h3>A HELP</h3>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Sobre nós </a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Carreiras profissionais </a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Iniciativa para jovens </a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Duvidas Frequentes </a>
+                </li>
+            </ul>
+
+
+            <ul class="footer-list">
+                <li>
+                    <h3>Relacionamento ao cliente</h3>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Politica de privacidade </a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Alerta de segurança </a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Termos de uso </a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer_link"> Fale conosco </a>
+                </li>
+            </ul>
+
+            <div id="footer_subscribe">
+                <h3>Cadastre-se</h3>
+
+                <p>Fique por dentro das novidades da HELP, cadastre-se!</p>
+
+                <div id="input_group">
+                    <input type="email" name="" id="">
+                    <button>
+                        <i class="fa-regular fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer_copyright">
+            &#169
+            2024 all rights reserved
+        </div>
+    </footer>
+
+</body>
+
+</html>

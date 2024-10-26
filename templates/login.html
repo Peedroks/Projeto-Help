@@ -1,58 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="{{ url_for('static', filename='Style_cadastro.css') }}" rel="stylesheet">
+    <title>Formulário de Login</title>
+    <link href="{{ url_for('static', filename='CSS/login.css') }}" rel="stylesheet" />
 </head>
-<body>
 
-  <div class="conteiner">
-    <div class="content first-content">
-        <!-- Primeira coluna - Informação e link para login -->
-        <div class="primeira-coluna">
-            <h2 class="titulo titulo-welcome">Não possui uma conta?</h2>
-            <p class="descrição descrição-primária">Para acessar nossa plataforma</p>
-            <p class="descrição descrição-primária">Faça um rápido cadastro</p>
-            <a href="/form"><button class="btn btn-primeiro">Fazer cadastro</button></a>
+<body>
+    <div class="container">
+        <div class="form-image">
+            <img src="{{ url_for('static', filename='imagens/undraw_website_5bo8.svg') }}" alt="Imagem de Login">
         </div>
 
-        <!-- Segunda coluna - Formulário de Cadastro -->
-        <div class="segunda-coluna">
-            <h2 class="titulo titulo-secundario">Faça login na sua conta</h2>
+        <div class="form">
+            <!-- {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="error-message">
+                        <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %} -->
+            
+            <form action="{{ url_for('login') }}" method="POST"> 
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Bem-vindo de Volta!</h1>
+                    </div>
+                    <div class="login-button">
+                        <button type="button" onclick="window.location.href='{{ url_for('criarconta') }}'">Cadastre-se</button>
+                    </div>
+                </div>
 
-            <form action="/login_submit" method="post" class="form">
-              <label class="Label-input" for="Email">
-                <img src="{{ url_for('static', filename='images/Email.png') }}" alt="email" width="20" height="20">
-                  <input type="email" id="email" name="email" placeholder="Email" required>
-              </label>
+                <div class="input-group">
+                    <div class="input-box">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+                    </div>
 
-              <label class="Label-input" for="senha">
-                <img src="{{ url_for('static', filename='images/cadeado.png') }}" alt="cadeado" width="20" height="20">
-                  <input type="password" id="senha" name="senha" placeholder="Senha" required>
-              </label>
+                    <div class="input-box">
+                        <label for="senha">Senha</label>
+                        <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
+                    </div>
 
-              <button class="btn btn-cad" type="submit">Login</button>
-          </form>
-<!--   <h2>Login de Usuário</h2>
-    <form action="/login_submit" method="post"> 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required><br><br>
-        <input type="submit" value="Entrar">
-    </form>
-    <a href="/">Não tem uma conta? Cadastre-se</a>
-        -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+                    <div class="remember">
+                        <p><a href="#">Esqueceu a senha?</a></p>
+                    </div>
+
+                    <div class="continue-button">
+                        <button type="submit">Entrar</button> <!-- Botão que submete o formulário -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, request, session, render_template_string, redirect, flash, render_template
+from flask import Flask, request, session, render_template_string, redirect, flash, render_template, url_for
 import mysql.connector
 import re
 import requests
@@ -14,8 +14,8 @@ def get_db_connection():
         password='',
         database='Projeto_vanessa'
     )
-    
-def criar_db():
+
+"""def criar_db():
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -46,69 +46,120 @@ def criar_db():
         id_regiao INT,
         FOREIGN KEY (id_regiao) REFERENCES regiao(id_regiao)
     )
-    ''')
+    ''') 
 
     conn.commit()
     cursor.close()
-    conn.close()
+    conn.close()"""
     
+@app.route('/')
 @app.route('/index')
-def form():
+@app.route('/inicio')
+def home():
     return render_template('index.html')
+
+@app.route('/servicos')
+def servicos():
+    return render_template('Serviços.html') 
+
+@app.route('/orcamento')
+def orcamento():
+    return render_template('Orçamento.html')
+
+@app.route('/historico_consulta')
+def historico_consulta():
+    return render_template('HC.html')
+
+@app.route('/criarconta')
+def criarconta():
+    return render_template('Cadastro.html')
+
+@app.route('/cadastro')  
+def cadastro():
+    return render_template('Cadastro.html')
+
+
+@app.route('/sobre_nos')
+def sobre_nos():
+    return render_template('Sobre-nós.html')
+
+@app.route('/termos')
+def termos():
+    return render_template('Termos de uso.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
     name = request.form['name']
     email = request.form['email']
     senha = request.form['senha']
+    
+    print(f"Dados recebidos: Name={name}, Email={email}")  # Para verificar os dados recebidos
 
     # Validação de dados
     if not name or not email or not senha:
         flash('Todos os campos são obrigatórios!')
         return redirect('/')
 
-    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    if not re.match(email_regex, email):
-        flash('Formato de e-mail inválido!')
-        return redirect('/')
-
-    if len(senha) < 6:
-        flash('A senha deve ter pelo menos 6 caracteres.')
-        return redirect('/')
-
     senha_hash = generate_password_hash(senha)
+    print("Senha criptografada com sucesso")
 
-    conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="Projeto_vanessa"
-    )
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO users (name, email, senha) VALUES (%s, %s, %s)', (name, email, senha_hash))
+        conn.commit()
+        print("Dados inseridos com sucesso no banco")
+    except mysql.connector.Error as err:
+        flash(f'Erro ao cadastrar usuário: {err}')
+        conn.rollback()
+        print(f"Erro no banco de dados: {err}")
+        return redirect('/')
+    finally:
+        cursor.close()
+        conn.close()
 
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO users (name, email, senha) VALUES (%s, %s, %s)', (name, email, senha_hash))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    flash(f"Usuário {name} cadastrado com sucesso!")
+    return redirect(url_for('login'))
 
-    return f"Usuário {name} cadastrado com sucesso!"
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        email = request.form.get('email')  # Use get para evitar KeyError
+        senha = request.form.get('senha')
+
+        if not email or not senha:
+            flash('Email e senha são obrigatórios.')
+            return redirect(url_for('login'))
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+        user = cursor.fetchone()
+        cursor.close()
+        conn.close()
+
+        if user and check_password_hash(user[3], senha):  # Verifique a senha
+            session['user_id'] = user[0]  # Armazene o ID do usuário na sessão
+            flash(f"Bem-vindo, {user[1]}!")
+            return redirect(url_for('home'))
+        else:
+            flash('Email ou senha incorretos.')
+            return redirect(url_for('login'))
+
+    return render_template('login.html')  # Renderiza o formulário de login
 
 @app.route('/login_submit', methods=['POST'])
 def login_submit():
-    email = request.form['email']
-    senha = request.form['senha']
+    # Este código pode ser removido se a lógica de login for mantida na rota login()
+    email = request.form.get('email')
+    senha = request.form.get('senha')
 
-    conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="Projeto_vanessa"
-    )
+    if not email or not senha:
+        flash('Email e senha são obrigatórios.')
+        return redirect(url_for('login'))
 
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
     user = cursor.fetchone()
@@ -117,11 +168,11 @@ def login_submit():
 
     if user and check_password_hash(user[3], senha):
         session['user_id'] = user[0]
-        return redirect('/home')
+        flash(f"Bem-vindo, {user[1]}!")
+        return redirect(url_for('home'))
     else:
         flash('Email ou senha incorretos.')
-        return redirect('/login')
-
+        return redirect(url_for('login'))
 
 @app.route('/add_catalogo')
 def add_catalogo():
@@ -150,36 +201,6 @@ def logout():
     flash('Você saiu com sucesso.')
     return redirect('/login')
 
-@app.route('/criarconta')
-def criarconta():
-    return render_template('index.html')
-
-@app.route('/home')
-def home():
-    return render_template('Home.html')
-
-"""@app.route('/search', methods=['GET', 'POST'])
-def search():
-    if request.method == 'POST':
-        query = request.form['query']
-        conn = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='Projeto_vanessa'
-        )
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT * FROM catalogo WHERE nome LIKE %s OR categoria LIKE %s", ('%' + query + '%', '%' + query + '%'))
-        results = cursor.fetchall()
-
-        cursor.close()
-        conn.close()
-
-        return render_template('search_results.html', results=results, query=query)
-
-    return redirect('/home')
-"""
 def buscar_endereco_por_cep(cep):
     response = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
     
@@ -292,5 +313,5 @@ def calcular_distancia(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
 if __name__ == '__main__':
-    criar_db()
+    'criar_db()'
     app.run(debug=True)

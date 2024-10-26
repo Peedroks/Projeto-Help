@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de cadastro</title>
+    <link rel="stylesheet" href="static/CSS/Cadastro.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-image">
+            <img src="{{ url_for('static', filename='imagens/undraw_website_5bo8.svg') }}">
+        </div>
+
+        <div class="form">
+            <form action="{{ url_for('submit') }}" method="POST">
+    <div class="form-header">
+        <div class="title">
+            <h1>Cadastre-se</h1>
+        </div>
+        <div class="login-button">
+            <button type="button" onclick="window.location.href='{{ url_for('login') }}'">Entrar</button>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <div class="input-box">
+            <label for="completename">Nome completo</label>
+            <input id="completename" type="text" name="name" placeholder="Digite o seu nome completo" required>
+        </div>
+        <div class="input-box">
+            <label for="CPF">CPF</label>
+            <input id="CPF" type="number" name="CPF" placeholder="Digite seu CPF" required>
+        </div>
+        <div class="input-box">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+        </div>
+        <div class="input-box">
+            <label for="password">Senha</label>
+            <input id="password" type="password" name="senha" placeholder="Digite sua senha" required>
+        </div>
+    </div>
+    
+    <div class="continue-button">
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>
+        </div>
+    </div>
+</body>
+
+</html>
