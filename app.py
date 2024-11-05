@@ -93,7 +93,7 @@ def submit():
     email = request.form['email']
     senha = request.form['senha']
     
-    print(f"Dados recebidos: Name={name}, Email={email}")  # Para verificar os dados recebidos
+    print(f"Dados recebidos: Name={name}, Email={email}")
 
     # Validação de dados
     if not name or not email or not senha:
@@ -140,18 +140,18 @@ def login():
         conn.close()
 
         if user and check_password_hash(user[3], senha):  # Verifique a senha
-            session['user_id'] = user[0]  # Armazene o ID do usuário na sessão
+            session['user_id'] = user[0]  
             flash(f"Bem-vindo, {user[1]}!")
             return redirect(url_for('home'))
         else:
             flash('Email ou senha incorretos.')
             return redirect(url_for('login'))
 
-    return render_template('login.html')  # Renderiza o formulário de login
+    return render_template('login.html')  
 
 @app.route('/login_submit', methods=['POST'])
 def login_submit():
-    # Este código pode ser removido se a lógica de login for mantida na rota login()
+    
     email = request.form.get('email')
     senha = request.form.get('senha')
 
@@ -181,7 +181,7 @@ def add_catalogo():
 @app.route('/adicionar_item', methods=['POST'])
 def adicionar_item():
     if request.method == 'POST':
-        nome = request.form['name']  # Mantenha a referência ao formulário
+        nome = request.form['name']  
         categoria = request.form['categoria']
         cep = request.form['cep']
 
@@ -224,7 +224,7 @@ def adicionar_endereco_catalogo(nome, categoria, cep):
         regiao_nome = f"{cidade}, {estado}"
         
         latitude, longitude = obter_coordenadas_por_cep(cep)
-        if latitude is None or longitude is None:  # Verifica se as coordenadas são válidas
+        if latitude is None or longitude is None: 
             flash("Não foi possível obter as coordenadas geográficas para este CEP.")
             return  
         
@@ -306,7 +306,7 @@ def buscar_por_cep():
 
 
 def calcular_distancia(lat1, lon1, lat2, lon2):
-    R = 6371  # Raio da Terra em km
+    R = 6371  
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
     a = math.sin(dlat / 2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2)**2

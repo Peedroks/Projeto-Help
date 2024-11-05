@@ -15,6 +15,7 @@ body {
     background-position: center;
     background-size: cover;
 
+
 }
 
 a {
@@ -139,7 +140,48 @@ main {
 
 }
 
+/*conteudo site*/
 
+.SB {
+
+    align-items: center;
+    display: flex;
+
+    h1 {
+        color: white;
+        margin-top: 4rem;
+        margin-left: 2rem;
+    }
+
+    .hist {
+        h3 {
+            color: white;
+            margin-left: 2rem;
+            margin-top: 1rem;
+            display: flex;
+
+        }
+
+        p {
+            color: white;
+            max-width: 500px;
+            margin-left: 2rem;
+            text-align: justify;
+            margin-top: 1rem;
+            display: flex;
+
+        }
+
+        .foto {
+            width: 400px;
+            height: 300px;
+            display: flex;
+        }
+    }
+}
+
+
+/*footer*/
 
 main {
     height: 80vh;
