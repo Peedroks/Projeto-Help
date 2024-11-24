@@ -4,58 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Login</title>
-    <link href="{{ url_for('static', filename='CSS/login.css') }}" rel="stylesheet" />
+    <title>Formulario de cadastro</title>
+    <link rel="stylesheet" href="static/CSS/Dados/Cadastro.css">
+    <link rel="stylesheet" href="static/CSS/Dados/login.css">
 </head>
 
 <body>
     <div class="container">
         <div class="form-image">
-            <img src="{{ url_for('static', filename='imagens/undraw_website_5bo8.svg') }}" alt="Imagem de Login">
+            <img src="static/Imagens/undraw_website_5bo8.svg">
         </div>
 
         <div class="form">
-            <!-- {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="error-message">
-                        <ul>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            {% endwith %} -->
-            
-            <form action="{{ url_for('login') }}" method="POST"> 
+            <form action="#">
                 <div class="form-header">
                     <div class="title">
-                        <h1>Bem-vindo de Volta!</h1>
+                        <h1>Bem vindo(a) de volta</h1>
                     </div>
-                    <div class="login-button">
-                        <button type="button" onclick="window.location.href='{{ url_for('criarconta') }}'">Cadastre-se</button>
-                    </div>
+                    <a href="{{ url_for('cadastro') }}" class="btn-default" id="Entrar">
+                        Cadastre-se
+                    </a>
                 </div>
 
                 <div class="input-group">
                     <div class="input-box">
                         <label for="email">Email</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+                        <input id="email" type="email" name="email" placeholder="Digite seu email"> <!--required-->
                     </div>
 
                     <div class="input-box">
-                        <label for="senha">Senha</label>
-                        <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
+                        <label for="password">Senha</label>
+                        <input id="password" type="password" name="password" placeholder="Digite sua senha">
+                        <!--required-->
                     </div>
 
-                    <div class="remember">
-                        <p><a href="#">Esqueceu a senha?</a></p>
+                    <div class="input-box">
+                        <label for="password">Confirme sua senha</label>
+                        <input id="Confirmpassword" type="password" name="Confirmpassword"
+                            placeholder="Digite sua senha"> <!--required-->
                     </div>
 
-                    <div class="continue-button">
-                        <button type="submit">Entrar</button> <!-- Botão que submete o formulário -->
-                    </div>
+                    <a href="#">Esqueceu sua senha?</a>
+
                 </div>
+
+                <a href="index" class="btn-default" id="Avançar">
+
+                    Fazer Login
+                </a>
+
             </form>
         </div>
     </div>

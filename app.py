@@ -12,45 +12,8 @@ def get_db_connection():
         host='localhost',
         user='root',
         password='',
-        database='Projeto_vanessa'
+        database='HELP_APP'
     )
-
-"""def criar_db():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
- 
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        senha VARCHAR(255) NOT NULL
-    )
-    ''')
-
-    
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS regiao (
-        id_regiao INT AUTO_INCREMENT PRIMARY KEY,
-        nome VARCHAR(255) NOT NULL UNIQUE
-    )
-    ''')
-
-    
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS catalogo (
-        id_cat INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        categoria VARCHAR(255) NOT NULL,
-        id_regiao INT,
-        FOREIGN KEY (id_regiao) REFERENCES regiao(id_regiao)
-    )
-    ''') 
-
-    conn.commit()
-    cursor.close()
-    conn.close()"""
     
 @app.route('/')
 @app.route('/index')
@@ -78,14 +41,110 @@ def criarconta():
 def cadastro():
     return render_template('Cadastro.html')
 
+@app.route('/cadastro2')  
+def cadastro2():
+    return render_template('Cadastro_2.html')
 
 @app.route('/sobre_nos')
 def sobre_nos():
-    return render_template('Sobre-nós.html')
+    return render_template('Sobre-nós_ofl.html')
 
 @app.route('/termos')
 def termos():
     return render_template('Termos de uso.html')
+
+@app.route('/avaliacoes')
+def avaliacoes():
+    return render_template('Avaliações.html')
+
+@app.route('/autonomo')
+def autonomo():
+    return render_template('Autonomo.html')
+
+@app.route('/Adress')
+def adress():
+    return render_template('Adress.html')
+
+@app.route('/mobile')
+def mobile():
+    return render_template('Aplicativo_mobile.html')
+
+@app.route('/prestador')
+def prestador():
+    return render_template('Prestador.html')
+
+@app.route('/denuncia')
+def denuncia():
+    return render_template('Denunciar.html')
+
+@app.route('/atividade')
+def atividade():
+    return render_template('Atividade.html')
+
+@app.route('/configuracao')
+def configuracao():
+    return render_template('Configurações.html')
+
+
+@app.route('/perfil')
+def perfil():
+    return render_template('Perfil.html')
+
+@app.route('/contratar')
+def contratar():
+    return render_template('Contratar.html')
+
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')
+
+@app.route('/notificacao')
+def notificacao():
+    return render_template('Notificações.html')
+
+@app.route('/help_pro')
+def help_pro():
+    return render_template('Help,pro.html')
+
+@app.route('/historico')
+def historico():
+    return render_template('Histórico de serviço.html')
+
+@app.route('/pedreiro')
+def pedreiro():
+    return render_template('pedreiro.html')
+
+@app.route('/informatica')
+def informatica():
+    return render_template('Informatica.html')
+
+@app.route('/eletricista')
+def eletricista():
+    return render_template('eletricista.html')
+
+@app.route('/mecanico')
+def mecanico():
+    return render_template('Mecanico.html')
+
+@app.route('/encanador')
+def encanador():
+    return render_template('Encanador.html')
+
+@app.route('/limpeza')
+def limpeza():
+    return render_template('Limpeza.html')
+
+@app.route('/politica')
+def politica():
+    return render_template('Politica de privacidade.html')
+
+@app.route('/cliente')
+def cliente():
+    return render_template('Cliente.html')
+
+@app.route('/empresa')
+def empresa():
+    return render_template('Empresa.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -106,7 +165,7 @@ def submit():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO users (name, email, senha) VALUES (%s, %s, %s)', (name, email, senha_hash))
+        cursor.execute('INSERT INTO USUARIO (NOME_COMPLETO, EMAIL, SENHA) VALUES (%s, %s, %s)', (name, email, senha_hash))
         conn.commit()
         print("Dados inseridos com sucesso no banco")
     except mysql.connector.Error as err:
@@ -134,7 +193,7 @@ def login():
 
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+        cursor.execute('SELECT * FROM USUARIO WHERE EMAIL = %s', (email,))
         user = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -161,7 +220,7 @@ def login_submit():
 
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+    cursor.execute('SELECT * FROM USUARIO WHERE EMAIL = %s', (email,))
     user = cursor.fetchone()
     cursor.close()
     conn.close()
@@ -178,140 +237,12 @@ def login_submit():
 def add_catalogo():
     return render_template('add_item.html')
 
-@app.route('/adicionar_item', methods=['POST'])
-def adicionar_item():
-    if request.method == 'POST':
-        nome = request.form['name']  
-        categoria = request.form['categoria']
-        cep = request.form['cep']
-
-        if not nome or not categoria or not cep:
-            flash('Todos os campos são obrigatórios!')
-            return redirect('/add_catalogo')
-
-        adicionar_endereco_catalogo(nome, categoria, cep)
-        flash('Item adicionado com sucesso!')
-        return redirect('/add_catalogo')
-
-    return render_template('add_item.html')
-
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     flash('Você saiu com sucesso.')
     return redirect('/login')
 
-def buscar_endereco_por_cep(cep):
-    response = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
-    
-    if response.status_code == 200:
-        endereco = response.json()
-        if "erro" not in endereco:
-            return endereco
-        else:
-            print(f"CEP não encontrado: {cep}")
-            return "CEP não encontrado."
-    print(f"Erro ao conectar à API com status: {response.status_code}")
-    return "Erro ao conectar à API."
-
-    
-def adicionar_endereco_catalogo(nome, categoria, cep):
-    endereco = buscar_endereco_por_cep(cep)
-    
-    if isinstance(endereco, dict):
-        cidade = endereco['localidade']
-        estado = endereco['uf']
-        regiao_nome = f"{cidade}, {estado}"
-        
-        latitude, longitude = obter_coordenadas_por_cep(cep)
-        if latitude is None or longitude is None: 
-            flash("Não foi possível obter as coordenadas geográficas para este CEP.")
-            return  
-        
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute('SELECT id_regiao FROM regiao WHERE nome = %s', (regiao_nome,))
-        regiao = cursor.fetchone()
-
-        if not regiao:
-            cursor.execute('INSERT INTO regiao (nome, estado, cidade, latitude, longitude) VALUES (%s, %s, %s, %s, %s)', 
-                           (regiao_nome, estado, cidade, latitude, longitude))
-            conn.commit()
-            regiao_id = cursor.lastrowid
-        else:
-            regiao_id = regiao[0]
-
-        cursor.execute('INSERT INTO catalogo (name, categoria, id_regiao, latitude, longitude) VALUES (%s, %s, %s, %s, %s)', 
-                       (nome, categoria, regiao_id, latitude, longitude))
-        conn.commit()
-        cursor.close()
-        conn.close()
-    else:
-        flash(endereco) 
-
-
-
-def obter_coordenadas_por_cep(cep):
-    api_key = 'AIzaSyCuFxK7ExQ8hTUqMPhB3f7m0VIJT-mZ1FA'  
-    response = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={cep}&key={api_key}")
-    if response.status_code == 200:
-        resultado = response.json()
-        if resultado['results']:
-            localizacao = resultado['results'][0]['geometry']['location']
-            return localizacao['lat'], localizacao['lng']
-    return None, None 
-
-
-@app.route('/buscar_por_cep', methods=['POST'])
-def buscar_por_cep():
-    servico = request.form['query']
-    cep = request.form['cep']
-
-    endereco = buscar_endereco_por_cep(cep)
-    
-    if isinstance(endereco, dict):
-        latitude_usuario, longitude_usuario = obter_coordenadas_por_cep(cep)
-
-        if latitude_usuario is None or longitude_usuario is None:  
-            flash('Não foi possível obter as coordenadas do usuário.')
-            return redirect('/home')
-
-        conn = get_db_connection()
-        cursor = conn.cursor()
-
-        cursor.execute('''SELECT nome, categoria, latitude, longitude FROM catalogo WHERE categoria LIKE %s''', ('%' + servico + '%',))
-        resultados = cursor.fetchall()
-
-        servicos_distancias = []
-        for resultado in resultados:
-            nome, categoria, lat_servico, lon_servico = resultado
-            
-            if lat_servico is None or lon_servico is None:  
-                continue  
-            
-            distancia = calcular_distancia(latitude_usuario, longitude_usuario, lat_servico, lon_servico)
-            servicos_distancias.append((nome, categoria, distancia))
-        
-        servicos_distancias.sort(key=lambda x: x[2])
-
-        cursor.close()
-        conn.close()
-
-        return render_template('search_results_cep.html', resultados=servicos_distancias)
-    else:
-        flash('CEP inválido.')
-        return redirect('/home')
-
-
-
-def calcular_distancia(lat1, lon1, lat2, lon2):
-    R = 6371  
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = math.sin(dlat / 2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2)**2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    return R * c
 if __name__ == '__main__':
     'criar_db()'
     app.run(debug=True)

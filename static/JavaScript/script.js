@@ -34,27 +34,5 @@ $(document).ready(function () {
         $(navItems[activeSectionIndex]).addClass('active');
     });
 
-    ScrollReveal().reveal('#cta', {
-        origin: 'left',
-        duration: 2000,
-        distance: '20%'
-    });
 
-    ScrollReveal().reveal('.service', {
-        origin: 'left',
-        duration: 2000,
-        distance: '20%'
-    });
-
-    ScrollReveal().reveal('#testimonial_person', {
-        origin: 'left',
-        duration: 1000,
-        distance: '20%'
-    })
-
-    ScrollReveal().reveal('.feedback', {
-        origin: 'right',
-        duration: 1000,
-        distance: '20%'
-    })
 });

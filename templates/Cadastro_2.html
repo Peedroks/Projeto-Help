@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de cadastro</title>
+    <link rel="stylesheet" href="static/CSS/Dados/Cadastro.css">
+    <link rel="stylesheet" href="static/CSS/Dados/Cadastro 2.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-image">
+            <img src="static/Imagens/undraw_website_5bo8.svg">
+        </div>
+
+        <div class="form">
+            <form action="#">
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Você é Autonomo, Cliente ou Empresa?</h1>
+                    </div>
+                    <a href="{{ url_for('login') }}" class="btn-default" id="Entrar">
+                        Entrar
+                    </a>
+                </div>
+
+                <div class="user">
+                    <a href="{{ url_for('autonomo') }}" class="btn-default" id="Autonomo">
+                        Autonomo
+                    </a>
+                </div>
+
+                <div class="user">
+                    <a href="{{ url_for('cliente') }}" class="link">Cliente</a>
+                </div>
+
+                <div class="user">
+                    <a href="{{ url_for('empresa') }}" class="link">Empresa</a>
+                </div>
+
+
+
+            </form>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

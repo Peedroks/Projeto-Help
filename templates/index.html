@@ -10,18 +10,17 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="static/CSS/style.css">
-    <link rel="stylesheet" href="static/CSS/header.css">
-    <link rel="stylesheet" href="static/CSS/home.css">
-    <link rel="stylesheet" href="static/CSS/menu.css">
-    <link rel="stylesheet" href="static/CSS/Testemunials.css">
-    <link rel="stylesheet" href="static/CSS/footer.css">
+    <link rel="stylesheet" href="static/CSS/Styles/style.css">
+    <link rel="stylesheet" href="static/CSS/Styles/header.css">
+    <link rel="stylesheet" href="static/CSS/Styles/home.css">
+    <link rel="stylesheet" href="static/CSS/Styles/menu.css">
+    <link rel="stylesheet" href="static/CSS/Styles/Testemunials.css">
+    <link rel="stylesheet" href="static/CSS/Styles/footer.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </head>
-<script src="https://unpkg.com/scrollreveal"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <body>
 
@@ -43,15 +42,16 @@
                 </li>
             </ul>
 
-            <button class="btn-default">
-                Area Exclusiva
-            </button>
+            <a href="{{ url_for('cadastro') }}" class="btn-default">
+                Area exclusiva
+            </a>
 
             <button id="mobile_btn">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </nav>
 
+        <!-- arrumar o bug do botão mobile-->
         <div id="mobile_menu">
             <ul id="mobile_nav_list">
                 <li class="nav-item">
@@ -67,9 +67,7 @@
                 </li>
             </ul>
 
-            <button class="btn-default">
-                Area Exclusiva
-            </button>
+            <a href="{{ url_for('cadastro') }}" class="btn-default"></a>
         </div>
     </header>
     <script src="{{ url_for('static', filename='JavaScript/script.js') }}"></script>
@@ -113,7 +111,7 @@
             </div>
             <div id="banner">
 
-                <img src="static/imagens/workplace-removebg-preview.png">
+                <img src="static/Imagens/workplace-removebg-preview.png">
             </div>
 
         </section>
@@ -131,7 +129,7 @@
                         <i class="fa-regular fa-star"></i>
                     </div>
 
-                    <img src="static/imagens/Prestar.png" alt="">
+                    <img src="static/Imagens/Banners/Prestar.png" alt="">
 
                     <h3 class="serv-title">
                         Prestar serviços
@@ -143,9 +141,9 @@
                     </Span>
 
                     <div class="enter">
-                        <button class="btn-default" id="first">
-                            Entrar <i class="fa-solid fa-door-open"></i>
-                        </button>
+                        <a href="{{ url_for('prestador') }}" class="btn-default" id="pqs">
+                            Quero prestar serviço
+                        </a>
                     </div>
                 </div>
 
@@ -155,7 +153,7 @@
                         <i class="fa-regular fa-star"></i>
                     </div>
 
-                    <img class="prestado" src="static/imagens/Prestado.png" alt="">
+                    <img class="prestado" src="static/Imagens/Banners/Prestado.png" alt="">
 
                     <h3 class="serv-title">
                         Contratar um prestador de serviço
@@ -168,9 +166,10 @@
                     </Span>
 
                     <div class="enter">
-                        <button class="btn-default" id="second">
-                            Entrar <i class="fa-solid fa-door-open"></i>
-                        </button>
+                        <a href="{{ url_for('contratar') }}" class="btn-default" id="qc">
+                            Quero contratar
+                        </a>
+                        
                     </div>
                 </div>
 
@@ -180,7 +179,7 @@
                         <i class="fa-regular fa-star"></i>
                     </div>
 
-                    <img src="static/imagens/Denunciar.png" alt="">
+                    <img src="static/Imagens/Banners/Denunciar.png" alt="">
 
                     <h3 class="serv-title">
                         Reclame aqui
@@ -193,9 +192,9 @@
                         comunidade em um ambiente seguro e agradável para todos. </Span>
 
                     <div class="enter">
-                        <button class="btn-default">
-                            Entrar <i class="fa-solid fa-door-open"></i>
-                        </button>
+                        <a href="#" class="btn-default" id="qd">
+                            Quero denunciar
+                        </a>
                     </div>
                 </div>
             </div>
@@ -204,7 +203,7 @@
         <!--Feedbacks-->
 
         <section id="testimonials">
-            <img src="static/imagens/Gato.webp" id="testemonials_person" alt="">
+            <img src="static/Imagens/Banners/muier.png.png" id="testemonials_person" alt="">
 
             <div id="testemonials_content">
                 <h2 class="section-title">Avaliações</h2>
@@ -213,7 +212,7 @@
 
                 <div id="feedbacks">
                     <div class="feedback">
-                        <img src="static/imagens/Pedrão Kanban Scrum.jpg" class="feedback-avatar" alt="">
+                        <img src="static/Imagens/PedrãoKanbanScrum.jpg" class="feedback-avatar" alt="">
 
                         <div class="feedback-content">
                             <p>
@@ -228,7 +227,7 @@
                     </div>
 
                     <div class="feedback">
-                        <img src="static/imagens/Gato 2.webp" class="feedback-avatar" alt="">
+                        <img src="static/Imagens/Gato 2.webp" class="feedback-avatar" alt="">
 
                         <div class="feedback-content">
                             <p>
@@ -237,17 +236,62 @@
                                 </span>
                             </p>
 
-                            <p>Como voceês tem coragem de fazer um aplicativo assim, eu teria vergonha de postar isso
+                            <p>Como vocês tem coragem de fazer um site assim, eu teria vergonha de postar isso
                                 kkkkkkkkkkkkk</p>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn-default">
-                    Ver mais avaliações
-                </button>
+
+                <a href="{{ url_for('avaliacoes') }}" class="btn-default">
+                    Avaliações
+                </a>
+
+
             </div>
         </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!--Rodapé-->
         <footer>
@@ -279,16 +323,16 @@
                         <h3>A HELP</h3>
                     </li>
 
+                    <a href="{{ url_for('sobre_nos') }}" class="footer_link">
+                        Sobre Nós
+                    </a>
+
                     <li>
-                        <a href="{{ url_for('sobre_nos') }}" class="footer_link">Sobre nós</a></li>
+                        <a href="#services" class="footer_link"> Carreiras</a>
                     </li>
 
                     <li>
-                        <a href="#" class="footer_link"> Carreiras</a>
-                    </li>
-
-                    <li>
-                        <a href="Mobile.html" class="footer_link"> Aplicativo Mobile </a>
+                        <a href="{{ url_for('mobile') }}" class="footer_link"> Aplicativo Mobile </a>
                     </li>
 
                     <li>
@@ -303,7 +347,7 @@
                     </li>
 
                     <li>
-                        <a href="#" class="footer_link"> Politica de privacidade </a>
+                        <a href="{{ url_for('politica') }}" class="footer_link"> Politica de privacidade </a>
                     </li>
 
                     <li>
@@ -327,7 +371,7 @@
                     <div id="input_group">
                         <input type="email" name="" id="">
                         <button>
-                            <a href="{{ url_for('criarconta') }}"><i class="fa-regular fa-envelope"></i></a>
+                            <a href="Cadastro.html"><i class="fa-regular fa-envelope"></i></a>
                         </button>
                     </div>
                 </div>
